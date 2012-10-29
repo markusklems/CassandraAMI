@@ -63,7 +63,7 @@ sleep 10
 # script for calculating the optimal stride/stripe geometry?
 #sudo mkfs.ext4 $MULTIDISK -b 4096 -E stride=128,stripe-width=256
 sudo mkfs.ext4 $MULTIDISK
-echo "$MULTIDISK\t$MOUNTPOINT\txfs\tdefaults,nobootwait,noatime\t0\t0" | sudo tee -a /etc/fstab
+echo "$MULTIDISK\t$MOUNTPOINT\text4\tdefaults,nobootwait,noatime\t0\t0" | sudo tee -a /etc/fstab
 sudo mkdir $MOUNTPOINT
 sudo mount -a
 
