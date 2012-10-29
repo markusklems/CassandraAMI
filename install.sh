@@ -20,6 +20,12 @@ sudo apt-get purge -y openjdk-6-jre-lib
 sudo apt-get purge -y openjdk-7-jre openjdk-7-jre-lib
 sudo apt-get autoremove -y
 sudo apt-get update -y
+	
+
+# Unmount /dev/xvdb from /mnt
+sudo umount /mnt
+sudo rm /etc/fstab
+echo "LABEL=cloudimg-rootfs	/	 ext4	defaults	0 0" | sudo tee -a /etc/fstab
 
 # Git these files on to the server's home directory
 git config --global color.ui auto
@@ -88,7 +94,8 @@ sudo mv "$HOME/cassandra_ami/start_ami_script.sh" /etc/init.d/start-ami-script.s
 sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
-# Installation done. Clean up.
+# Installation done.
+# Clean up.
 sudo rm .ssh/authorized_keys
 sudo rm -rf /etc/ssh/ssh_host_dsa_key*
 sudo rm -rf /etc/ssh/ssh_host_key*
@@ -96,5 +103,5 @@ sudo rm -rf /etc/ssh/ssh_host_rsa_key*
 sudo rm -rf /tmp/*
 sudo rm -rf /tmp/.*
 sudo chown -R ubuntu:ubuntu $HOME/.
-rm -rf $HOME/.bash_history 
+sudo rm -rf "$HOME/.bash_history"
 history -c

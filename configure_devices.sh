@@ -7,8 +7,9 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
-# Unmount /dev/xvdb from /mnt
-sudo umount /mnt
-
 cd "$HOME/cassandra_ami"
+# Parameters:
+# -m: multidisk
+# -p: mountpoint
+# -d: string of devices, separated by blank character
 sudo sh configure_devices_as_RAID0.sh -m /dev/md0 -p /raid0 -d "/dev/xvdb /dev/xvdc"

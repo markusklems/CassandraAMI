@@ -30,7 +30,15 @@ for device in $DEVICES; do
 	echo 'w' | sudo fdisk -c -u $device
 	# New partition (n), primary partition (p), partition number (1),
 	# First sector (default), Last sector (default), type (t), Linux RAID (fd), write (w)
-	echo 'n\np\n1\n\n\nt\nfd\nw' | sudo fdisk -c -u $device
+	#echo "n\np\n1\n\n\nt\nfd\nw" | sudo fdisk -c -u $device
+	echo "n
+	p
+	1
+
+
+	t
+	fd
+	w" | sudo fdisk -c -u $device
 done
 
 sleep 3
