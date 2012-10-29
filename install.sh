@@ -20,12 +20,6 @@ sudo apt-get purge -y openjdk-6-jre-lib
 sudo apt-get purge -y openjdk-7-jre openjdk-7-jre-lib
 sudo apt-get autoremove -y
 sudo apt-get update -y
-	
-
-# Unmount /dev/xvdb from /mnt
-sudo umount /mnt
-sudo rm /etc/fstab
-echo "LABEL=cloudimg-rootfs	/	 ext4	defaults	0 0" | sudo tee -a /etc/fstab
 
 # Git these files on to the server's home directory
 git config --global color.ui auto
