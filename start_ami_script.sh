@@ -20,4 +20,4 @@ echo 1 | sudo tee /proc/sys/vm/overcommit_memory
 # Clear old ami.log
 echo "\n======================================================\n" >> ami.log
 cd "$HOME/cassandra_ami"
-sudo sh configure.sh
+git pull
