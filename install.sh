@@ -75,40 +75,6 @@ sudo apt-get -y install ca-certificates-java icedtea-6-jre-cacao java-common jsv
 sudo apt-get -y --no-install-recommends install mdadm lvm2 dmsetup reiserfsprogs xfsprogs
 sudo apt-get update -y
 
-# Setup of logical volume group.
-	
-# Unmount /dev/xvdb from /mnt
-sudo umount /mnt
-# Partition /dev/xvdb
-echo "n
-p
-1
-2048
-880732159
-w
-" | sudo fdisk /dev/xvdb
-# Partition /dev/xvdc
-echo "n
-p
-1
-2048
-880732159
-w
-" | sudo fdisk /dev/xvdc
-# Create RAID setup.
-# ... I have to do more performance benchmarking to decide on this.
-# Skip it for now.
-
-# Create physical volumes.
-sudo pvcreate /dev/xvdb1
-sudo pvcreate /dev/xvdc1
-# Create volume group.
-sudo vgcreate vgcassandra /dev/xvdb1 /dev/xvdc1
-# Create logical volumes.
-sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
-# Create file system.
-sudo mkfs.ext4 /dev/vgcassandra/lvcassandra
-
 # Pre-install Cassandra dependencies for convenience.
 cd $HOME
 git clone https://github.com/apache/cassandra.git
@@ -118,7 +84,7 @@ cd $HOME
 rm -rf cassandra
 
 # Set the start script
-sudo mv $HOME/cassandra_ami/start-ami-script.sh /etc/init.d/start-ami-script.sh
+sudo mv "$HOME/cassandra_ami/start_ami_script.sh" /etc/init.d/start-ami-script.sh
 sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
