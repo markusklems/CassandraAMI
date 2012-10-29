@@ -19,5 +19,5 @@ echo 1 | sudo tee /proc/sys/vm/overcommit_memory
 
 # Clear old ami.log
 echo "\n======================================================\n" >> ami.log
-cd /home/ubuntu/datastax_ami
+cd "$HOME/cassandra_ami"
 sh configure.sh
