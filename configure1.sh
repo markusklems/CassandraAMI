@@ -10,5 +10,6 @@
 export DEBIAN_FRONTEND=noninteractive
 # Retrieve the latest version of the scripts.
 (cd "$HOME/cassandra_ami"; git pull)
+sleep 2
 # Now call the other scripts
 sudo sh "$HOME/cassandra_ami/configure2.sh"
