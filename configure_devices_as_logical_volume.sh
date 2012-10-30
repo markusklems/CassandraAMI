@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 ## Setup of devices as logical volume.
 ## By Markus Klems (2012).
 ## Tested with Ubuntu 11.10 (ami-cdc072a4).

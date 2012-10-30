@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 ## Install Apache Cassandra and dependencies.
 ## The scripts are based on a combination of the DataStax ComboAMI scripts,
 ## the whirr cassandra scripts and my own scripts.
@@ -101,7 +101,7 @@ sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
 sudo chmod +x "$HOME/cassandra_ami/configure1.sh"
-sudo cp "$HOME/cassandra_ami/configure1.sh" /var/lib/cloud/per-once
+sudo cp "$HOME/cassandra_ami/configure1.sh" /var/lib/cloud/scripts/per-once/.
 	
 # Installation done.
 # Clean up.
