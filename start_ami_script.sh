@@ -22,4 +22,5 @@ echo "\n======================================================\n" >> ami.log
 cd "$HOME/cassandra_ami"
 git pull
 sudo cp priam.jar /usr/share/cassandra/lib/.
+sudo cp priam-web.war /var/lib/tomcat7/webapps/.
 #sudo start.sh
