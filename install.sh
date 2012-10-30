@@ -100,6 +100,8 @@ sudo mv "$HOME/cassandra_ami/start_ami_script.sh" /etc/init.d/start-ami-script.s
 sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
+sudo chmod +x "$HOME/cassandra_ami/configure1.sh"
+	
 # Installation done.
 # Clean up.
 sudo rm .ssh/authorized_keys

@@ -11,5 +11,9 @@ export DEBIAN_FRONTEND=noninteractive
 # Retrieve the latest version of the scripts.
 (cd "$HOME/cassandra_ami"; git pull)
 sleep 2
+sudo chmod +x "$HOME/cassandra_ami/configure2.sh"
+sudo chmod +x "$HOME/cassandra_ami/configure_devices.sh"
+sudo chmod +x "$HOME/cassandra_ami/configure_devices_as_RAID0.sh"
+sudo chmod +x "$HOME/cassandra_ami/configure_devices_as_logical_volumes.sh"
 # Now call the other scripts
 sudo sh "$HOME/cassandra_ami/configure2.sh"
