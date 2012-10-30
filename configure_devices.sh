@@ -7,6 +7,10 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
+umount /mnt
+
+sleep 2
+
 cd "$HOME/cassandra_ami"
 # Parameters:
 # -m: multidisk
