@@ -23,4 +23,6 @@ cd "$HOME/cassandra_ami"
 git pull
 sudo cp priam.jar /usr/share/cassandra/lib/.
 sudo cp priam-web.war /var/lib/tomcat7/webapps/.
+# Copy your AWS credentials into /etc/awscredentials.properties
+# TODO get this from the userdata and put it into the file
 #sudo start.sh

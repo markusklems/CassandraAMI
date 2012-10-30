@@ -31,7 +31,7 @@ END_OF_FILE
 
 sudo mv "$HOME/limits.conf" /etc/security/limits.conf
 sudo chown root:root /etc/security/limits.conf
-sudo chmod 2277 /etc/security/limits.conf
+sudo chmod 755 /etc/security/limits.conf
 
 sudo chown -hR ubuntu:ubuntu "$HOME"
 
@@ -66,6 +66,10 @@ sudo mkdir -p /var/lib/cassandra
 sudo mkdir -p /var/log/cassandra
 sudo chown -R cassandra:cassandra /var/lib/cassandra
 sudo chown -R cassandra:cassandra /var/log/cassandra
+	
+# Priam settings
+sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
+sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
