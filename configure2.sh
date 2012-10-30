@@ -9,13 +9,11 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
+echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
+curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+curl -s http://opscenter.datastax.com/debian/repo_key | sudo apt-key add -
+curl -s http://installer.datastax.com/downloads/ubuntuarchive.repo_key | sudo apt-key add -
 sudo apt-get update -y
-
-# Retrieve the latest version of the scripts.
-(cd "$HOME/cassandra_ami"; git pull)
-# Move the priam libs to where they belong.
-sudo cp "$HOME/cassandra_ami/priam.jar" /usr/share/cassandra/lib/.
-sudo cp "$HOME/cassandra_ami/priam-web.war" /var/lib/tomcat7/webapps/.
 
 sudo rm /etc/security/limits.conf
 cat >"$HOME/limits.conf" <<END_OF_FILE
@@ -64,6 +62,9 @@ sudo chown -R cassandra:cassandra /var/log/cassandra
 # Priam settings
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
+# Move the priam libs to where they belong.
+sudo cp "$HOME/cassandra_ami/priam.jar" /usr/share/cassandra/lib/.
+sudo cp "$HOME/cassandra_ami/priam-web.war" /var/lib/tomcat7/webapps/.
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
