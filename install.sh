@@ -73,6 +73,10 @@ sudo apt-get -y install ca-certificates-java icedtea-6-jre-cacao java-common jsv
 
 # LVM and RAID
 sudo apt-get -y --no-install-recommends install mdadm lvm2 dmsetup reiserfsprogs xfsprogs
+
+# Utility tools
+sudo apt-get install -y s3cmd
+	
 sudo apt-get update -y
 
 # Pre-install Cassandra dependencies for convenience.

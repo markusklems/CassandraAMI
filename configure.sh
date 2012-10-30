@@ -46,6 +46,8 @@ sudo rm -rf /etc/motd
 sudo touch /etc/motd
 
 # Setup repos.
+#gpg --keyserver pgp.mit.edu --recv-keys 40976EAF437D05B5
+#gpg --export --armor 40976EAF437D05B5 | sudo apt-key add -
 echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/datastax.sources.list
 curl -s http://installer.datastax.com/downloads/ubuntuarchive.repo_key | sudo apt-key add -
 curl -s http://opscenter.datastax.com/debian/repo_key | sudo apt-key add -
