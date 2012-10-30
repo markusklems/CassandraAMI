@@ -9,9 +9,14 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
+sudo apt-get update -y
+
 # Retrieve the latest version of the scripts.
 cd "$HOME/cassandra_ami"
 git pull
+# Move the priam libs to where they belong.
+sudo cp "$HOME/cassandra_ami/priam.jar" /usr/share/cassandra/lib/.
+sudo cp "$HOME/cassandra_ami/priam-web.war" /var/lib/tomcat7/webapps/.
 
 sudo rm /etc/security/limits.conf
 cat >"$HOME/limits.conf" <<END_OF_FILE
@@ -44,16 +49,6 @@ sudo swapoff --all
 # Setup the motd
 sudo rm -rf /etc/motd
 sudo touch /etc/motd
-
-# Setup repos.
-#gpg --keyserver pgp.mit.edu --recv-keys 40976EAF437D05B5
-#gpg --export --armor 40976EAF437D05B5 | sudo apt-key add -
-echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/datastax.sources.list
-curl -s http://installer.datastax.com/downloads/ubuntuarchive.repo_key | sudo apt-key add -
-curl -s http://opscenter.datastax.com/debian/repo_key | sudo apt-key add -
-curl -s http://debian.datastax.com/debian/repo_key | sudo apt-key add -
-echo "deb http://archive.canonical.com/ oneiric partner" | sudo tee -a /etc/apt/sources.list.d/java.sources.list
-sudo apt-get update -y
 
 # Install DataStax Cassandra community edition
 sudo apt-get install -y python-cql dsc1.1

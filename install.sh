@@ -10,8 +10,12 @@
 export DEBIAN_FRONTEND=noninteractive
 
 sudo apt-get update -y
+#gpg --keyserver pgp.mit.edu --recv-keys 40976EAF437D05B5
+#gpg --export --armor 40976EAF437D05B5 | sudo apt-key add -
 echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
 curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+curl -s http://opscenter.datastax.com/debian/repo_key | sudo apt-key add -
+curl -s http://installer.datastax.com/downloads/ubuntuarchive.repo_key | sudo apt-key add -
 echo "deb http://archive.canonical.com/ oneiric partner" | sudo tee -a /etc/apt/sources.list.d/java.sources.list
 sudo echo "sun-java6-bin shared/accepted-sun-dlj-v1-1 boolean true" | sudo debconf-set-selections
 sudo apt-get -y install git

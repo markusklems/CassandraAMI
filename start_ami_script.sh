@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO move this to /etc/init/*.conf
+
 ### BEGIN INIT INFO
 # Provides:
 # Required-Start:    $remote_fs $syslog
@@ -19,10 +21,3 @@ echo 1 | sudo tee /proc/sys/vm/overcommit_memory
 
 # Clear old ami.log
 echo "\n======================================================\n" >> ami.log
-cd "$HOME/cassandra_ami"
-git pull
-sudo cp priam.jar /usr/share/cassandra/lib/.
-sudo cp priam-web.war /var/lib/tomcat7/webapps/.
-# Copy your AWS credentials into /etc/awscredentials.properties
-# TODO get this from the userdata and put it into the file
-#sudo start.sh
