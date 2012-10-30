@@ -1,6 +1,8 @@
 #!/bin/bash
 # Launch this script as user data with your EC2 instance.
 
+export DEBIAN_FRONTEND=noninteractive
+
 # Enter your aws credential properties.
 # Use SSL for communication with AWS.
 cat >/etc/awscredential.properties <<END_OF_FILE
