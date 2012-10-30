@@ -21,3 +21,5 @@ echo 1 | sudo tee /proc/sys/vm/overcommit_memory
 echo "\n======================================================\n" >> ami.log
 cd "$HOME/cassandra_ami"
 git pull
+sudo cp priam.jar /usr/share/cassandra/lib/.
+#sudo start.sh
