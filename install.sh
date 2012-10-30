@@ -101,6 +101,7 @@ sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
 sudo chmod +x "$HOME/cassandra_ami/configure1.sh"
+sudo cp "$HOME/cassandra_ami/configure1.sh" /var/lib/cloud/per-once
 	
 # Installation done.
 # Clean up.
@@ -109,7 +110,6 @@ sudo rm -rf /etc/ssh/ssh_host_dsa_key*
 sudo rm -rf /etc/ssh/ssh_host_key*
 sudo rm -rf /etc/ssh/ssh_host_rsa_key*
 sudo rm -rf /tmp/*
-sudo rm -rf /tmp/.*
 sudo chown -R ubuntu:ubuntu $HOME/.
 sudo rm -rf "$HOME/.bash_history"
 history -c
