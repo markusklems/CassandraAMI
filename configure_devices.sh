@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -e
 ## Configure EC2 ephemeral and ebs devices.
 ## By Markus Klems (2012).
 ## Tested with Ubuntu 11.10 (ami-cdc072a4) m1.large.

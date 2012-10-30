@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -e
 ## Install Apache Cassandra and dependencies.
 ## The scripts are based on a combination of the DataStax ComboAMI scripts,
 ## the whirr cassandra scripts and my own scripts.

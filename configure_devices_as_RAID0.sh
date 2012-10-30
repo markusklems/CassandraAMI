@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -e
 ## Setup of devices as RAID0 array.
 ## By Markus Klems (2012).
 ## Tested with Ubuntu 11.10 (ami-cdc072a4).
