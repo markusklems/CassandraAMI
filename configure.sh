@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 ## Install Apache Cassandra and dependencies.
 ## The scripts are based on a combination of the DataStax ComboAMI scripts,
 ## the whirr cassandra scripts and my own scripts.
@@ -12,8 +12,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -y
 
 # Retrieve the latest version of the scripts.
-cd "$HOME/cassandra_ami"
-git pull
+(cd "$HOME/cassandra_ami"; git pull)
 # Move the priam libs to where they belong.
 sudo cp "$HOME/cassandra_ami/priam.jar" /usr/share/cassandra/lib/.
 sudo cp "$HOME/cassandra_ami/priam-web.war" /var/lib/tomcat7/webapps/.
