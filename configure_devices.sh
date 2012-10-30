@@ -11,9 +11,8 @@ umount /mnt
 
 sleep 2
 
-cd "$HOME/cassandra_ami"
 # Parameters:
 # -m: multidisk
 # -p: mountpoint
 # -d: string of devices, separated by blank character
-sudo sh configure_devices_as_RAID0.sh -m /dev/md0 -p /raid0 -d "/dev/xvdb /dev/xvdc"
+sudo sh "$HOME/cassandra_ami/configure_devices_as_RAID0.sh" -m /dev/md0 -p /raid0 -d "/dev/xvdb /dev/xvdc"

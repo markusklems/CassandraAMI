@@ -71,4 +71,4 @@ sudo apt-get -y install opscenter-free
 sudo service opscenterd stop
 	
 # Setup of devices.
-sudo sh configure_devices.sh 
+sudo sh "$HOME/cassandra_ami/configure_devices.sh"
