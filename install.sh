@@ -78,7 +78,7 @@ sudo apt-get -y --no-install-recommends install mdadm lvm2 dmsetup reiserfsprogs
 sudo apt-get install -y s3cmd
 
 # Priam dependencies
-sudo apt-get install tomcat7
+sudo apt-get install -y tomcat7
 	
 sudo apt-get update -y
 
