@@ -11,7 +11,7 @@ devices=$@
 
 alldevices=""
 # Create physical volumes.
-for device in devices; do
+for device in $devices; do
 	sudo pvcreate $device
 	alldevices="$device $alldevices"
 done
@@ -34,3 +34,5 @@ sudo mount -t ext4 -o noatime /dev/vgcassandra/lvcassandra /mnt
 sudo chown -hR cassandra:cassandra /dev/vgcassandra/lvcassandra
 sudo chown -hR cassandra:cassandra /mnt
 	
+# Done here. Show LV.
+sudo lvdisplay
