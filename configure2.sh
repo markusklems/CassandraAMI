@@ -58,8 +58,15 @@ sudo apt-get -y install opscenter-free
 sudo service opscenterd stop
 	
 # Setup of devices.
-sudo sh /home/ubuntu/cassandra_ami/configure_devices.sh
+umount /mnt
+sleep 2
+# Parameters:
+MULTIDISK="/dev/md0"
+MOUNTPOINT="/raid0"
+DEVICES="/dev/xvdb /dev/xvdc"
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -p $MOUNTPOINT -d $DEVICES
 # Logical volumes etc
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh
 	
 # Remove and recreate cassandra directories.
 C_LOG_DIR=/var/log/cassandra
@@ -68,8 +75,16 @@ sudo rm -rf $C_LIB_DIR
 sudo rm -rf $C_LOG_DIR
 sudo mkdir -p $C_LIB_DIR
 sudo mkdir -p $C_LOG_DIR
+sudo mkdir -p /mnt/vgcassandra/lvcassandra/log
+sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib
+# Create links to cassandra log and lib dirs.
+ln -s /mnt/vgcassandra/lvcassandra/logs $C_LOG_DIR
+ln -s /mnt/vgcassandra/lvcassandra/lib $C_LIB_DIR
+# Make data and commitlog dirs.
+sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/data
+sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/commitlog
+sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/saved_caches
+# Set access rights.
 sudo chown -R cassandra:cassandra $C_LIB_DIR
 sudo chown -R cassandra:cassandra $C_LOG_DIR
-# Create links to cassandra log and lib dirs.
-ln -s /mnt/cassandra/logs $C_LOG_DIR
-ln -s /mnt/cassandra/lib $C_LIB_DIR
+sudo chown -R cassandra:cassandra /mnt/vgcassandra/lvcassandra

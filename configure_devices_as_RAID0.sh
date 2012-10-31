@@ -71,4 +71,3 @@ echo "Show RAID0 details:"
 cat /proc/mdstat
 echo "15000" > /proc/sys/dev/raid/speed_limit_min
 sudo mdadm --detail $MULTIDISK
-	

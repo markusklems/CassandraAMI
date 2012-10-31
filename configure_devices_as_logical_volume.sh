@@ -20,16 +20,28 @@ for device in devices; do
 	echo 'n\np\n1\n\n\nt\nfd\nw' | sudo fdisk -c -u
 done
 
+sleep 5
+
+alldevices=""
 # Create physical volumes.
-sudo pvcreate /dev/xvdb1
-sudo pvcreate /dev/xvdc1
+for device in devices; do
+	sudo pvcreate $device
+	alldevices="$device $alldevices"
+done
+#remove last character
+alldevices=${alldevices%?}
+#sudo pvcreate /dev/xvdb1
+#sudo pvcreate /dev/xvdc1
+	
 # Create volume group.
-sudo vgcreate vgcassandra /dev/xvdb1 /dev/xvdc1
+#sudo vgcreate vgcassandra /dev/xvdb1 /dev/xvdc1
+sudo vgcreate vgcassandra $alldevices
 # Create logical volumes.
 sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
 # Create file system.
 sudo mkfs.ext4 /dev/vgcassandra/lvcassandra
 	
-sudo chown -hR cassandra:cassandra /dev/xvdb1
-sudo chown -hR cassandra:cassandra /dev/xvdc1
+#sudo chown -hR cassandra:cassandra /dev/xvdb1
+#sudo chown -hR cassandra:cassandra /dev/xvdc1
 sudo chown -hR cassandra:cassandra /mnt/vgcassandra/lvcassandra
+	
