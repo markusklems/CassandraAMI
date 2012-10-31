@@ -8,19 +8,6 @@
 export DEBIAN_FRONTEND=noninteractive
 
 devices=$@
-	
-for device in devices; do
-	echo "Confirming device $device is not mounted."
-	sudo umount $device
-	#Clear 'invalid flag 0x0000 of partition table 4' by issuing a write, then running fdisk on each device
-	echo "Partition device $device"
-	echo 'w' | sudo fdisk -c -u $device
-	# New partition (n), primary partition (p), partition number (1),
-	# First sector (default), Last sector (default), type (t), Linux RAID (fd), write (w)
-	echo 'n\np\n1\n\n\nt\nfd\nw' | sudo fdisk -c -u
-done
-
-sleep 5
 
 alldevices=""
 # Create physical volumes.
@@ -40,8 +27,10 @@ sudo vgcreate vgcassandra $alldevices
 sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
 # Create file system.
 sudo mkfs.ext4 /dev/vgcassandra/lvcassandra
-	
-#sudo chown -hR cassandra:cassandra /dev/xvdb1
-#sudo chown -hR cassandra:cassandra /dev/xvdc1
-sudo chown -hR cassandra:cassandra /mnt/vgcassandra/lvcassandra
+
+# Mount
+sudo mount -t ext4 -o noatime /dev/vgcassandra/lvcassandra /mnt
+
+sudo chown -hR cassandra:cassandra /dev/vgcassandra/lvcassandra
+sudo chown -hR cassandra:cassandra /mnt
 	

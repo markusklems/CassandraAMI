@@ -66,25 +66,28 @@ MOUNTPOINT="/raid0"
 DEVICES="/dev/xvdb /dev/xvdc"
 sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -p $MOUNTPOINT -d $DEVICES
 # Logical volumes etc
-sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh $MOUNTPOINT
 	
 # Remove and recreate cassandra directories.
 C_LOG_DIR=/var/log/cassandra
 C_LIB_DIR=/var/lib/cassandra
+LV_LOG_DIR=/mnt/log
+LV_LIB_DIR=/mnt/lib
 sudo rm -rf $C_LIB_DIR
 sudo rm -rf $C_LOG_DIR
 sudo mkdir -p $C_LIB_DIR
 sudo mkdir -p $C_LOG_DIR
-sudo mkdir -p /mnt/vgcassandra/lvcassandra/log
-sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib
+sudo mkdir -p $LV_LOG_DIR
+sudo mkdir -p $LV_LIB_DIR
 # Create links to cassandra log and lib dirs.
-ln -s /mnt/vgcassandra/lvcassandra/logs $C_LOG_DIR
-ln -s /mnt/vgcassandra/lvcassandra/lib $C_LIB_DIR
-# Make data and commitlog dirs.
-sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/data
-sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/commitlog
-sudo mkdir -p /mnt/vgcassandra/lvcassandra/lib/saved_caches
+ln -s $LV_LOG_DIR $C_LOG_DIR
+ln -s $LV_LIB_DIR $C_LIB_DIR
+# Make data, commitlog, and cache dirs.
+sudo mkdir -p $LV_LIB_DIR/data
+sudo mkdir -p $LV_LIB_DIR/commitlog
+sudo mkdir -p $LV_LIB_DIR/saved_caches
 # Set access rights.
 sudo chown -R cassandra:cassandra $C_LIB_DIR
 sudo chown -R cassandra:cassandra $C_LOG_DIR
-sudo chown -R cassandra:cassandra /mnt/vgcassandra/lvcassandra
+sudo chown -R cassandra:cassandra $LV_LIB_DIR
+sudo chown -R cassandra:cassandra $LV_LOG_DIR
