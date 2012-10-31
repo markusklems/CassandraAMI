@@ -1,12 +1,5 @@
 #!/bin/sh -ex
-## Install Apache Cassandra and dependencies.
-## The scripts are based on a combination of the DataStax ComboAMI scripts,
-## the whirr cassandra scripts and my own scripts.
-## By Markus Klems (2012).
-## Tested with Ubuntu 11.10 (ami-cdc072a4).
-################################
-### NO WARRANTIES WHATSOEVER ###
-################################
+
 export DEBIAN_FRONTEND=noninteractive
 
 echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
@@ -16,7 +9,7 @@ curl -s http://installer.datastax.com/downloads/ubuntuarchive.repo_key | sudo ap
 sudo apt-get update -y
 
 sudo rm /etc/security/limits.conf
-cat >"$HOME/limits.conf" <<END_OF_FILE
+cat >/home/ubuntu/limits.conf <<END_OF_FILE
 * soft nofile 32768
 * hard nofile 32768
 root soft nofile 32768
@@ -31,11 +24,11 @@ root soft as unlimited
 root hard as unlimited
 END_OF_FILE
 
-sudo mv "$HOME/limits.conf" /etc/security/limits.conf
+sudo mv /home/ubuntu/limits.conf /etc/security/limits.conf
 sudo chown root:root /etc/security/limits.conf
 sudo chmod 755 /etc/security/limits.conf
 
-sudo chown -hR ubuntu:ubuntu "$HOME"
+sudo chown -hR ubuntu:ubuntu /home/ubuntu
 
 # Mount devices
 sudo mount -a
@@ -63,12 +56,12 @@ sudo chown -R cassandra:cassandra /var/log/cassandra
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
 # Move the priam libs to where they belong.
-sudo cp "$HOME/cassandra_ami/priam.jar" /usr/share/cassandra/lib/.
-sudo cp "$HOME/cassandra_ami/priam-web.war" /var/lib/tomcat7/webapps/.
+sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
+sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
 sudo service opscenterd stop
 	
 # Setup of devices.
-sudo sh "$HOME/cassandra_ami/configure_devices.sh"
+sudo sh /home/ubuntu/cassandra_ami/configure_devices.sh

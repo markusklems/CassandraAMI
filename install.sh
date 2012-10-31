@@ -88,20 +88,20 @@ sudo service tomcat7 stop
 sudo apt-get update -y
 
 # Pre-install Cassandra dependencies for convenience.
-cd $HOME
+cd /home/ubuntu
 git clone https://github.com/apache/cassandra.git
 cd cassandra
 ant
-cd $HOME
+cd /home/ubuntu
 rm -rf cassandra
 
 # Set the start script
-sudo mv "$HOME/cassandra_ami/start_ami_script.sh" /etc/init.d/start-ami-script.sh
+sudo mv /home/ubuntu/cassandra_ami/start_ami_script.sh /etc/init.d/start-ami-script.sh
 sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
-sudo chmod +x "$HOME/cassandra_ami/configure1.sh"
-sudo cp "$HOME/cassandra_ami/configure1.sh" /var/lib/cloud/scripts/per-once/.
+sudo chmod +x /home/ubuntu/cassandra_ami/configure1.sh
+sudo cp /home/ubuntu/cassandra_ami/configure1.sh /var/lib/cloud/scripts/per-once/.
 	
 # Installation done.
 # Clean up.
@@ -110,6 +110,6 @@ sudo rm -rf /etc/ssh/ssh_host_dsa_key*
 sudo rm -rf /etc/ssh/ssh_host_key*
 sudo rm -rf /etc/ssh/ssh_host_rsa_key*
 sudo rm -rf /tmp/*
-sudo chown -R ubuntu:ubuntu $HOME/.
-sudo rm -rf "$HOME/.bash_history"
+sudo chown -R ubuntu:ubuntu /home/ubuntu/.
+sudo rm -rf /home/ubuntu/.bash_history
 history -c
