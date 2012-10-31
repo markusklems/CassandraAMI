@@ -7,12 +7,11 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
-while getopts m:p:d: option
+while getopts m:d: option
 do
 	case "${option}"
 		in
 		    m) MULTIDISK=${OPTARG};;
-			p) MOUNTPOINT=${OPTARG};;
 			d) DEVICES=${OPTARG};;
 	esac
 done
@@ -63,9 +62,9 @@ sleep 10
 # script for calculating the optimal stride/stripe geometry?
 #sudo mkfs.ext4 $MULTIDISK -b 4096 -E stride=128,stripe-width=256
 sudo mkfs.ext4 $MULTIDISK
-echo "$MULTIDISK\t$MOUNTPOINT\text4\tdefaults,nobootwait,noatime\t0\t0" | sudo tee -a /etc/fstab
-sudo mkdir $MOUNTPOINT
-sudo mount -a
+#echo "$MULTIDISK\t$MOUNTPOINT\text4\tdefaults,nobootwait,noatime\t0\t0" | sudo tee -a /etc/fstab
+#sudo mkdir $MOUNTPOINT
+#sudo mount -a
 
 echo "Show RAID0 details:"
 cat /proc/mdstat

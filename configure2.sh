@@ -62,17 +62,17 @@ umount /mnt
 sleep 2
 # Parameters:
 MULTIDISK="/dev/md0"
-MOUNTPOINT="/raid0"
 DEVICES="/dev/xvdb /dev/xvdc"
-sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -p $MOUNTPOINT -d $DEVICES
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -d $DEVICES
 # Logical volumes etc
-sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh $MOUNTPOINT
-	
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh $MULTIDISK
+
+MOUNTPOINT="/mnt"
 # Remove and recreate cassandra directories.
 C_LOG_DIR=/var/log/cassandra
 C_LIB_DIR=/var/lib/cassandra
-LV_LOG_DIR=/mnt/log
-LV_LIB_DIR=/mnt/lib
+LV_LOG_DIR="$MOUNTPOINT/log"
+LV_LIB_DIR="$MOUNTPOINT/lib"
 sudo rm -rf $C_LIB_DIR
 sudo rm -rf $C_LOG_DIR
 sudo mkdir -p $C_LIB_DIR
