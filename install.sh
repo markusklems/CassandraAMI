@@ -100,8 +100,8 @@ sudo mv /home/ubuntu/cassandra_ami/start_ami_script.sh /etc/init.d/start-ami-scr
 sudo chmod 755 /etc/init.d/start-ami-script.sh
 sudo update-rc.d -f start-ami-script.sh start 99 2 3 4 5 .
 	
-sudo chmod +x /home/ubuntu/cassandra_ami/configure1.sh
-sudo cp /home/ubuntu/cassandra_ami/configure1.sh /var/lib/cloud/scripts/per-once/.
+#sudo chmod +x /home/ubuntu/cassandra_ami/configure1.sh
+#sudo cp /home/ubuntu/cassandra_ami/configure1.sh /var/lib/cloud/scripts/per-once/.
 	
 # Installation done.
 # Clean up.

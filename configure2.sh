@@ -1,5 +1,7 @@
 #!/bin/sh -ex
-
+################################
+### NO WARRANTIES WHATSOEVER ###
+################################
 export DEBIAN_FRONTEND=noninteractive
 
 echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
@@ -44,14 +46,6 @@ sudo touch /etc/motd
 sudo apt-get install -y python-cql dsc1.1
 sudo service cassandra stop
 	
-# Remove and recreate cassandra directories.
-sudo rm -rf /var/lib/cassandra
-sudo rm -rf /var/log/cassandra
-sudo mkdir -p /var/lib/cassandra
-sudo mkdir -p /var/log/cassandra
-sudo chown -R cassandra:cassandra /var/lib/cassandra
-sudo chown -R cassandra:cassandra /var/log/cassandra
-	
 # Priam settings
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
@@ -65,3 +59,17 @@ sudo service opscenterd stop
 	
 # Setup of devices.
 sudo sh /home/ubuntu/cassandra_ami/configure_devices.sh
+# Logical volumes etc
+	
+# Remove and recreate cassandra directories.
+C_LOG_DIR=/var/log/cassandra
+C_LIB_DIR=/var/lib/cassandra
+sudo rm -rf $C_LIB_DIR
+sudo rm -rf $C_LOG_DIR
+sudo mkdir -p $C_LIB_DIR
+sudo mkdir -p $C_LOG_DIR
+sudo chown -R cassandra:cassandra $C_LIB_DIR
+sudo chown -R cassandra:cassandra $C_LOG_DIR
+# Create links to cassandra log and lib dirs.
+ln -s /mnt/cassandra/logs $C_LOG_DIR
+ln -s /mnt/cassandra/lib $C_LIB_DIR

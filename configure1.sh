@@ -1,5 +1,7 @@
 #!/bin/sh -ex
-
+################################
+### NO WARRANTIES WHATSOEVER ###
+################################
 export DEBIAN_FRONTEND=noninteractive
 # Retrieve the latest version of the scripts.
 (cd /home/ubuntu/cassandra_ami; git pull)
