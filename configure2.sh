@@ -66,21 +66,20 @@ sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -
 # Logical volumes etc
 sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh $MULTIDISK
 
-MOUNTPOINT="/mnt"
 # Remove and recreate cassandra directories.
 C_LOG_DIR=/var/log/cassandra
 C_LIB_DIR=/var/lib/cassandra
-LV_LOG_DIR="$MOUNTPOINT/log"
-LV_LIB_DIR="$MOUNTPOINT/lib"
+LV_LOG_DIR="/mnt$C_LOG_DIR"
+LV_LIB_DIR="/mnt$C_LIB_DIR"
 sudo rm -rf $C_LIB_DIR
 sudo rm -rf $C_LOG_DIR
-sudo mkdir -p $C_LIB_DIR
-sudo mkdir -p $C_LOG_DIR
+#sudo mkdir -p $C_LIB_DIR
+#sudo mkdir -p $C_LOG_DIR
 sudo mkdir -p $LV_LOG_DIR
 sudo mkdir -p $LV_LIB_DIR
 # Create links to cassandra log and lib dirs.
-ln -s $LV_LOG_DIR $C_LOG_DIR
-ln -s $LV_LIB_DIR $C_LIB_DIR
+sudo ln -s $LV_LOG_DIR /var/log
+sudo ln -s $LV_LIB_DIR /var/lib
 # Make data, commitlog, and cache dirs.
 sudo mkdir -p $LV_LIB_DIR/data
 sudo mkdir -p $LV_LIB_DIR/commitlog
