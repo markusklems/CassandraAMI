@@ -9,6 +9,6 @@ export DEBIAN_FRONTEND=noninteractive
 
 # We need Tomcat for priam-web.
 sudo service tomcat7 restart
-# Start cassandra and opscenter.
-sudo service cassandra restart
+# Start opscenter. Cassandra is started by priam.
+#sudo service cassandra restart
 sudo service opscenterd restart
