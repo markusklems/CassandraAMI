@@ -87,9 +87,9 @@ sudo chown -R cassandra:cassandra $C_LOG_DIR
 sudo chown -R cassandra:cassandra $LV_LIB_DIR
 sudo chown -R cassandra:cassandra $LV_LOG_DIR
 	
-# Move the priam libs to where they belong.
+# Move the priam lib to where it belongs.
 sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
-sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
+
 # Copy the cassandra conf to where priam expects it:
 sudo mkdir -p /tmp/cassandraconf
 sudo cp /etc/cassandra/* /tmp/cassandraconf/.
@@ -98,3 +98,7 @@ sudo cp /tmp/cassandraconf/* /etc/cassandra/conf/.
 sudo rm -rf /tmp/cassandraconf
 
 sudo /home/ubuntu/cassandra_ami/start.sh
+	
+# Wit for cassandra to start and then deploy the priam-web war file to the Tomcat container.
+sleep 20
+sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
