@@ -62,8 +62,7 @@ umount /mnt
 sleep 2
 # Parameters:
 MULTIDISK="/dev/md0"
-DEVICES="/dev/xvdb /dev/xvdc"
-sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -d $DEVICES
+sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_RAID0.sh -m $MULTIDISK -d "/dev/xvdb /dev/xvdc"
 # Logical volumes etc
 sudo sh /home/ubuntu/cassandra_ami/configure_devices_as_logical_volume.sh $MULTIDISK
 
