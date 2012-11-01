@@ -93,13 +93,14 @@ sudo chown -R cassandra:cassandra $LV_LOG_DIR
 # Move the priam lib to where it belongs.
 sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
 
+# I changed Priam, instead of doing this:
 # Copy the cassandra conf to where priam expects it:
-sudo mkdir -p /tmp/cassandraconf
-sudo cp /etc/cassandra/* /tmp/cassandraconf/.
-sudo mkdir -p /etc/cassandra/conf
-sudo cp /tmp/cassandraconf/* /etc/cassandra/conf/.
-sudo rm -rf /tmp/cassandraconf
-sudo chmod -R 777 /etc/cassandra/conf/
+#sudo mkdir -p /tmp/cassandraconf
+#sudo cp /etc/cassandra/* /tmp/cassandraconf/.
+#sudo mkdir -p /etc/cassandra/conf
+#sudo cp /tmp/cassandraconf/* /etc/cassandra/conf/.
+#sudo rm -rf /tmp/cassandraconf
+#sudo chmod -R 777 /etc/cassandra/conf/
 
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
