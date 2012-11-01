@@ -96,6 +96,7 @@ sudo cp /etc/cassandra/* /tmp/cassandraconf/.
 sudo mkdir -p /etc/cassandra/conf
 sudo cp /tmp/cassandraconf/* /etc/cassandra/conf/.
 sudo rm -rf /tmp/cassandraconf
+sudo chmod -R 777 /etc/cassandra/conf/
 
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
