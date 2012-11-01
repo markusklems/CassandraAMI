@@ -49,9 +49,6 @@ sudo service cassandra stop
 # Priam settings
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
-# Move the priam libs to where they belong.
-sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
-sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
@@ -89,3 +86,9 @@ sudo chown -R cassandra:cassandra $C_LIB_DIR
 sudo chown -R cassandra:cassandra $C_LOG_DIR
 sudo chown -R cassandra:cassandra $LV_LIB_DIR
 sudo chown -R cassandra:cassandra $LV_LOG_DIR
+	
+# Move the priam libs to where they belong.
+sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
+sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
+
+sudo /home/ubuntu/cassandra_ami/start.sh
