@@ -107,4 +107,4 @@ sudo /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start and then deploy the priam-web war file to the Tomcat container.
 sleep 20
-sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
+sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
