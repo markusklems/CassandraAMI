@@ -49,6 +49,9 @@ sudo service cassandra stop
 # Priam settings
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
+# Tomcat user must be allowed to start cassandra.
+# TODO: fine-tune this:
+echo "tomcat7 ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
@@ -100,6 +103,6 @@ sudo chmod -R 777 /etc/cassandra/conf/
 
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
-# Wit for cassandra to start and then deploy the priam-web war file to the Tomcat container.
+# Wait for services to start and then deploy the priam-web war file to the Tomcat container.
 sleep 20
 sudo cp /home/ubuntu/cassandra_ami/priam-web.war /var/lib/tomcat7/webapps/.
