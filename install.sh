@@ -66,9 +66,9 @@ if [ -f /etc/skel/.bashrc ]; then
   echo export JAVA_HOME=$JAVA_HOME >> /etc/skel/.bashrc
 fi
 
-# fix 'too many open files' problem
-echo "* soft nofile 32768" | sudo tee -a /etc/security/limits.conf
-echo "* hard nofile 32768" | sudo tee -a /etc/security/limits.conf
+# fix 'too many open files' problem (do this later in conf script)
+#echo "* soft nofile 32768" | sudo tee -a /etc/security/limits.conf
+#echo "* hard nofile 32768" | sudo tee -a /etc/security/limits.conf
 
 sudo apt-get update -y
 # Install packages
