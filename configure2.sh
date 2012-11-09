@@ -115,6 +115,12 @@ sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 # Start Tomcat/Priam-Cassandra + opscenter
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
+# TODO quick fix
+sudo chmod -R 777 $C_LIB_DIR
+sudo chmod -R 777 $C_LOG_DIR
+sudo chmod -R 777 $LV_LIB_DIR
+sudo chmod -R 777 $LV_LOG_DIR
+	
 # Wait for services to start.
 sleep 30
 
