@@ -106,7 +106,7 @@ sudo chmod -R 777 /etc/cassandra
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start.
-sleep 20
+sleep 60
 # Create ycsb table.
 sudo /home/ubuntu/cassandra_ami/configure_ycsb.sh
 # Deploy the priam-web war file to the Tomcat container.
