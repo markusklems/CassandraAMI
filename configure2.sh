@@ -89,7 +89,14 @@ sudo chown -R cassandra:cassandra $C_LIB_DIR
 sudo chown -R cassandra:cassandra $C_LOG_DIR
 sudo chown -R cassandra:cassandra $LV_LIB_DIR
 sudo chown -R cassandra:cassandra $LV_LOG_DIR
-	
+# Make this accessible to tomcat7 user.
+# We could add tomcat like this: useradd -G cassandra tomcat7
+# However, the easiest way: chmod 777
+sudo chmod -R 777 $C_LIB_DIR
+sudo chmod -R 777 $C_LOG_DIR
+sudo chmod -R 777 $LV_LIB_DIR
+sudo chmod -R 777 $LV_LOG_DIR
+
 # Move the priam lib to where it belongs.
 sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
 sudo chmod -R 777 /etc/cassandra
@@ -105,11 +112,11 @@ sudo chmod -R 777 /etc/cassandra
 	
 # Deploy the priam-web war file to the Tomcat container.
 sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
-
 # Start Tomcat/Priam-Cassandra + opscenter
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start.
-sleep 60
-# Create ycsb table.
+sleep 30
+
+# Create ycsb table. Concurrent execution should be no issue (?)
 sudo /home/ubuntu/cassandra_ami/configure_ycsb.sh
