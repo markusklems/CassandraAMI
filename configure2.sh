@@ -120,7 +120,7 @@ sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start.
-sleep 30
+sleep 60
 
 # quick fix, not secure:
 sudo chmod -R 777 $C_LIB_DIR
