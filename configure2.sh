@@ -129,4 +129,4 @@ sudo chmod -R 777 $LV_LIB_DIR
 sudo chmod -R 777 $LV_LOG_DIR
 
 # Create ycsb table. Concurrent execution should be no issue (?)
-sudo /home/ubuntu/cassandra_ami/configure_ycsb.sh
+sudo /home/ubuntu/cassandra_ami/configure_ycsb.sh $privateip
