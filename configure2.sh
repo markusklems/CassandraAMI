@@ -110,9 +110,9 @@ sudo chmod -R 777 /etc/cassandra
 privateip=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 sudo sed -i -e "s|127.0.0.1 localhost|$privateip localhost|" /etc/hosts
 # setup public hostname and ip
-#publichostname=`curl -s http://169.254.169.254/latest/meta-data/public-hostname`
-#publicip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` 
-#echo "\n$publicip $publichostname" | sudo tee -a /etc/hosts
+publichostname=`curl -s http://169.254.169.254/latest/meta-data/public-hostname`
+publicip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` 
+echo "$publicip $publichostname" | sudo tee -a /etc/hosts
 	
 # Deploy the priam-web war file to the Tomcat container.
 sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
