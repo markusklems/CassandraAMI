@@ -120,13 +120,16 @@ sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 sudo /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start.
-sleep 60
+sleep 90
 
-# quick fix, not secure:
+# quick fix so tomcat7 can read cassandra/data/system dir
+# not secure, should refactor this later:
 sudo chmod -R 777 $C_LIB_DIR
 sudo chmod -R 777 $C_LOG_DIR
 sudo chmod -R 777 $LV_LIB_DIR
 sudo chmod -R 777 $LV_LOG_DIR
+
+sleep 30
 
 # Create ycsb table. Concurrent execution should be no issue (?)
 sudo /home/ubuntu/cassandra_ami/configure_ycsb.sh $privateip
