@@ -45,6 +45,7 @@ sudo touch /etc/motd
 # Install DataStax Cassandra community edition
 sudo apt-get install -y python-cql dsc1.1
 sudo service cassandra stop
+sudo service tomcat7 stop
 	
 # Priam settings
 sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
@@ -116,7 +117,7 @@ sudo sed -i -e "s|127.0.0.1 localhost|$privateip localhost|" /etc/hosts
 # Deploy the priam-web war file to the Tomcat container.
 sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 # Start Tomcat/Priam-Cassandra + opscenter
-#sudo /home/ubuntu/cassandra_ami/start.sh
+#sudo sh /home/ubuntu/cassandra_ami/start.sh
 	
 # Wait for services to start.
 #sleep 120
