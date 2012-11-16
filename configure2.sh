@@ -118,16 +118,6 @@ sudo sed -i -e "s|127.0.0.1 localhost|$privateip localhost|" /etc/hosts
 sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 # Start Tomcat/Priam-Cassandra + opscenter
 #sudo sh /home/ubuntu/cassandra_ami/start.sh
-	
-# Wait for services to start.
-#sleep 120
-
-# quick fix so tomcat7 can read cassandra/data/system dir
-# not secure, should refactor this later:
-#sudo chmod -R 777 $C_LIB_DIR
-#sudo chmod -R 777 $C_LOG_DIR
-#sudo chmod -R 777 $LV_LIB_DIR
-#sudo chmod -R 777 $LV_LOG_DIR
 
 #sleep 30
 
