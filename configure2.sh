@@ -45,14 +45,14 @@ sudo touch /etc/motd
 # Install DataStax Cassandra community edition
 sudo apt-get install -y python-cql dsc1.1
 sudo service cassandra stop
-sudo service tomcat7 stop
+#sudo service tomcat7 stop
 	
 # Priam settings
-sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
-sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
+#sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|classname=\"com.netflix.priam.cassandra.NFThinCassandraDaemon\"|" /usr/sbin/cassandra
+#sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
 # Tomcat user must be allowed to start cassandra.
 # TODO: fine-tune this:
-echo "tomcat7 ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+#echo "tomcat7 ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 # Add tomcat7 user to cassandra group
 # sudo usermod -g cassandra tomcat7
 
@@ -115,7 +115,7 @@ sudo sed -i -e "s|127.0.0.1 localhost|$privateip localhost|" /etc/hosts
 #publicip=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4` 
 	
 # Deploy the priam-web war file to the Tomcat container.
-sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
+#sudo cp /home/ubuntu/cassandra_ami/Priam.war /var/lib/tomcat7/webapps/.
 # Start Tomcat/Priam-Cassandra + opscenter
 #sudo sh /home/ubuntu/cassandra_ami/start.sh
 
