@@ -4,6 +4,8 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
+CASSANDRA_USER=tomcat7
+
 echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
 curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
 curl -s http://opscenter.datastax.com/debian/repo_key | sudo apt-key add -
@@ -52,9 +54,9 @@ sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|clas
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
 # Tomcat user must be allowed to start cassandra.
 # TODO: fine-tune this:
-echo "tomcat7 ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
-# Add tomcat7 user to cassandra group
-# sudo usermod -g cassandra tomcat7
+echo "$CASSANDRA_USER ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+# Add CASSANDRA_USER user to cassandra group
+# sudo usermod -g cassandra $CASSANDRA_USER
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
@@ -88,10 +90,10 @@ sudo mkdir -p $LV_LIB_DIR/data
 sudo mkdir -p $LV_LIB_DIR/commitlog
 sudo mkdir -p $LV_LIB_DIR/saved_caches
 # Set access rights.
-sudo chown -R cassandra:cassandra $C_LIB_DIR
-sudo chown -R cassandra:cassandra $C_LOG_DIR
-sudo chown -R cassandra:cassandra $LV_LIB_DIR
-sudo chown -R cassandra:cassandra $LV_LOG_DIR
+sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $C_LIB_DIR
+sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $C_LOG_DIR
+sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $LV_LIB_DIR
+sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $LV_LOG_DIR
 
 # Move the priam lib to where it belongs.
 sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
@@ -105,7 +107,7 @@ sudo chmod -R 777 /etc/cassandra
 #sudo cp /tmp/cassandraconf/* /etc/cassandra/conf/.
 #sudo rm -rf /tmp/cassandraconf
 #sudo chmod -R 777 /etc/cassandra/conf/
-	
+
 # Network settings:
 # replace 127.0.0.1 with EC2 private IP
 privateip=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
