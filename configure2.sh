@@ -4,7 +4,9 @@
 ################################
 export DEBIAN_FRONTEND=noninteractive
 
-CASSANDRA_USER=tomcat7
+CASSANDRA_USER=cassandra
+CASSANDRA_GROUP=cassandra
+TOMCAT_USER=tomcat7
 
 echo "deb http://debian.datastax.com/community stable main" | sudo -E tee -a /etc/apt/sources.list
 curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
@@ -54,9 +56,9 @@ sudo sed -i -e "s|classname=\"org.apache.cassandra.thrift.CassandraDaemon\"|clas
 sudo sed -i -e "s|org.apache.cassandra.thrift.CassandraDaemon|com.netflix.priam.cassandra.NFThinCassandraDaemon|" /etc/init.d/cassandra
 # Tomcat user must be allowed to start cassandra.
 # TODO: fine-tune this:
-echo "$CASSANDRA_USER ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
-# Add CASSANDRA_USER user to cassandra group
-# sudo usermod -g cassandra $CASSANDRA_USER
+echo "$TOMCAT_USER ALL = NOPASSWD: ALL" | sudo tee -a /etc/sudoers
+# Add tomcat user to cassandra group
+sudo usermod -g $CASSANDRA_GROUP $TOMCAT_USER
 
 # Install OpsCenter
 sudo apt-get -y install opscenter-free
@@ -94,10 +96,14 @@ sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $C_LIB_DIR
 sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $C_LOG_DIR
 sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $LV_LIB_DIR
 sudo chown -R "$CASSANDRA_USER:$CASSANDRA_USER" $LV_LOG_DIR
+sudo chmod -R 770 $C_LIB_DIR
+sudo chmod -R 770 $C_LOG_DIR
+sudo chmod -R 770 $LV_LIB_DIR
+sudo chmod -R 770 $LV_LOG_DIR
 
 # Move the priam lib to where it belongs.
 sudo cp /home/ubuntu/cassandra_ami/priam.jar /usr/share/cassandra/lib/.
-sudo chmod -R 777 /etc/cassandra
+sudo chmod -R 770 /etc/cassandra
 
 # I changed Priam, instead of doing this:
 # Copy the cassandra conf to where priam expects it:
