@@ -26,10 +26,13 @@ sudo vgcreate vgcassandra $alldevices
 # Create logical volumes.
 sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
 # Create file system.
-sudo mkfs.ext4 /dev/vgcassandra/lvcassandra
+sudo mkfs.ext4 -f /dev/vgcassandra/lvcassandra
 
+# Set fstab
+echo '/dev/md0\t/mnt\text4\tdefaults,nobootwait,noatime,barriers=0,data=writeback,nobh\t0\t0' | sudo tee -a /etc/fstab
 # Mount
-sudo mount -t ext4 -o noatime /dev/vgcassandra/lvcassandra /mnt
+mount -a
+#sudo mount -t ext4 -o noatime /dev/vgcassandra/lvcassandra /mnt
 
 sudo chown -hR cassandra:cassandra /dev/vgcassandra/lvcassandra
 sudo chown -hR cassandra:cassandra /mnt
