@@ -31,7 +31,7 @@ sudo mkfs.xfs -f /dev/vgcassandra/lvcassandra
 # Set fstab
 sudo rm /etc/fstab
 echo 'LABEL=cloudimg-rootfs\t/\text4\tdefaults\t0\t0' | sudo tee -a /etc/fstab
-echo '/dev/md0\t/mnt\txfs\tdefaults,nobootwait,noatime\t0\t0' | sudo tee -a /etc/fstab
+echo '/dev/vgcassandra/lvcassandrat/mnt\txfs\tdefaults,nobootwait,noatime\t0\t0' | sudo tee -a /etc/fstab
 # Mount
 sudo mount -a
 
