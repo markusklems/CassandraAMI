@@ -29,9 +29,11 @@ sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
 sudo mkfs.ext4 -f /dev/vgcassandra/lvcassandra
 
 # Set fstab
+sudo rm /etc/fstab
+echo 'LABEL=cloudimg-rootfs\t/\text4\tdefaults\t0\t0' | sudo tee -a /etc/fstab
 echo '/dev/md0\t/mnt\text4\tdefaults,nobootwait,noatime,barriers=0,data=writeback,nobh\t0\t0' | sudo tee -a /etc/fstab
 # Mount
-mount -a
+sudo mount -a
 
 sudo chown -hR cassandra:cassandra /dev/vgcassandra/lvcassandra
 sudo chown -hR cassandra:cassandra /mnt
