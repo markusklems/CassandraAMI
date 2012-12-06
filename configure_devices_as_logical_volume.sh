@@ -26,12 +26,12 @@ sudo vgcreate vgcassandra $alldevices
 # Create logical volumes.
 sudo lvcreate -l +100%FREE -n lvcassandra vgcassandra
 # Create file system.
-sudo mkfs.ext4 -f /dev/vgcassandra/lvcassandra
+sudo mkfs.xfs -f /dev/vgcassandra/lvcassandra
 
 # Set fstab
 sudo rm /etc/fstab
 echo 'LABEL=cloudimg-rootfs\t/\text4\tdefaults\t0\t0' | sudo tee -a /etc/fstab
-echo '/dev/md0\t/mnt\text4\tdefaults,nobootwait,noatime,barriers=0,data=writeback,nobh\t0\t0' | sudo tee -a /etc/fstab
+echo '/dev/md0\t/mnt\txfs\tdefaults,nobootwait,noatime\t0\t0' | sudo tee -a /etc/fstab
 # Mount
 sudo mount -a
 
